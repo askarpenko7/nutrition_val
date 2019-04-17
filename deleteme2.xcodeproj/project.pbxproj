@@ -14,6 +14,7 @@
 		3D25E58922671D60002A4CDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D25E58722671D60002A4CDF /* LaunchScreen.storyboard */; };
 		3D25E59422671D60002A4CDF /* deleteme2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25E59322671D60002A4CDF /* deleteme2Tests.swift */; };
 		3D25E59F22671D60002A4CDF /* deleteme2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25E59E22671D60002A4CDF /* deleteme2UITests.swift */; };
+		3D25E5AD22672033002A4CDF /* NutritionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25E5AC22672033002A4CDF /* NutritionValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		3D25E59A22671D60002A4CDF /* deleteme2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = deleteme2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D25E59E22671D60002A4CDF /* deleteme2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deleteme2UITests.swift; sourceTree = "<group>"; };
 		3D25E5A022671D60002A4CDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D25E5AC22672033002A4CDF /* NutritionValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				3D25E58522671D60002A4CDF /* Assets.xcassets */,
 				3D25E58722671D60002A4CDF /* LaunchScreen.storyboard */,
 				3D25E58A22671D60002A4CDF /* Info.plist */,
+				3D25E5AC22672033002A4CDF /* NutritionValue.swift */,
 			);
 			path = deleteme2;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				3D25E58122671D5E002A4CDF /* ViewController.swift in Sources */,
 				3D25E57F22671D5E002A4CDF /* AppDelegate.swift in Sources */,
+				3D25E5AD22672033002A4CDF /* NutritionValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
