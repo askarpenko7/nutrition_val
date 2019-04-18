@@ -18,10 +18,12 @@ class ViewController: UIViewController {
     let colorTwo = #colorLiteral(red: 0.7412833571, green: 0.1650635302, blue: 0.3386405408, alpha: 1).cgColor
     let colorThree = #colorLiteral(red: 0.9245265126, green: 0.7113671899, blue: 0.3063792586, alpha: 1).cgColor
     
+    lazy var nutritionValView = NutritionValue(frame: CGRect(x: (view.frame.width - 200)/2, y: (view.frame.height - 200)/2, width: 200, height: 200))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        createGradientView()
+        createGradientView()
         initNutritionValueView()
     }
     
@@ -58,11 +60,14 @@ class ViewController: UIViewController {
     }
     
     func initNutritionValueView() {
-        let nutritionValView = NutritionValue(frame: CGRect(x: (view.frame.width - 200)/2, y: (view.frame.height - 200)/2, width: 200, height: 200))
-        
+        nutritionValView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(clearNutritionView)))
         view.addSubview(nutritionValView)
+        nutritionValView.updateWith(kcal: 70, percent: 0.7)
         
-        nutritionValView.startCountDown(duration: 5)
+    }
+    
+    @objc func clearNutritionView(){
+        nutritionValView.restoreView()
     }
 }
 

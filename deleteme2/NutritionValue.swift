@@ -9,10 +9,11 @@
 import UIKit
 
 class NutritionValue: UIView {
-    private var timer = Timer()
     
-    private var duration = 5.0
+    private var duration = 1
     private var kcal = 0.0
+    private var startKCalValue = 0.0
+    private var percent = 0.0
     
     private lazy var kcalLabel: UILabel = {
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: bounds.width, height: bounds.height)))
@@ -64,6 +65,14 @@ class NutritionValue: UIView {
         return pulseGradient
     }()
     
+    func updateWith(kcal: Double, percent: Double) {
+        self.kcal = kcal
+        self.percent = percent
+        animateCircleBy(percent: self.percent)
+        let displayLink = CADisplayLink(target: self, selector: #selector(handleUpdateKcal))
+        displayLink.add(to: .main, forMode: .default)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.loadLayers()
@@ -71,6 +80,15 @@ class NutritionValue: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func handleUpdateKcal(){
+        if startKCalValue >= kcal {
+            self.kcalLabel.text = "\(kcal)"
+        } else {
+            startKCalValue += Double((duration * 100)) / kcal
+            kcalLabel.text = "\(String.init(format: "%.1f", self.startKCalValue))"
+        }
     }
     
     private func loadLayers(){
@@ -91,53 +109,18 @@ class NutritionValue: UIView {
         addSubview(kcalLabel)
     }
     
-    private func animateForegroundLayer() {
+    private func animateCircleBy(percent: Double) {
         let foregroundAnimation = CABasicAnimation(keyPath: "strokeEnd")
         foregroundAnimation.fromValue = 0
-        foregroundAnimation.toValue = 1
+        foregroundAnimation.toValue = percent
         foregroundAnimation.duration = CFTimeInterval(duration)
         foregroundAnimation.fillMode = CAMediaTimingFillMode.forwards
         foregroundAnimation.isRemovedOnCompletion = false
-        foregroundAnimation.delegate = self
-        
         foregroundLayer.add(foregroundAnimation, forKey: "foregroundAnimation")
     }
     
-    @objc private func handleTimerTick() {
-        kcal -= 0.1
-        if kcal > 0 {
-            
-        } else {
-            kcal = 0
-            timer.invalidate()
-        }
-        
-        DispatchQueue.main.async {
-            self.kcalLabel.text = "\(String.init(format: "%.1f", self.kcal))"
-        }
-    }
-    
-    func startCountDown(duration: Double) {
-        self.duration = duration
-        self.kcal = duration
-        self.kcalLabel.text = String(kcal)
-        self.timer.invalidate()
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleTimerTick), userInfo: nil, repeats: true)
-        
-        beginAnimation()
-    }
-    
-    private func beginAnimation() {
-        animateForegroundLayer()
-    }
-    
-    deinit {
-        timer.invalidate()
-    }
-}
-
-extension NutritionValue: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        timer.invalidate()
+    func restoreView(){
+        startKCalValue = 0
+        animateCircleBy(percent: self.percent)
     }
 }
